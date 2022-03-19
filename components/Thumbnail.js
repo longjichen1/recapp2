@@ -2,9 +2,10 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Modal from "./Modal";
 
-function Thumbnail({ result, setOpen, setTitle }) {
+function Thumbnail({ result, setOpen, setTitle, clickAble = false }) {
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
   function setInfo() {
+    if (!clickAble) return;
     setOpen();
     setTitle(result);
   }
@@ -12,7 +13,7 @@ function Thumbnail({ result, setOpen, setTitle }) {
     <>
       <div onClick={setInfo} className="group p-2 ">
         <div className="flex flex-col justify-center cursor-pointer">
-          <p className="p-8 max-w-3xl max-h-[30%] overflow-scroll scrollbar-hide text-xl scale-0 sm:text-sm sm:max-w-sm sm:p-6 md:text-lg md:p-4 md:max-w-xl   text-white absolute group-hover:scale-100">
+          <p className="absolute  -transform-x-[50%] -transform-y-[50%] xl:w-[30%] xl:h-[25%] w-[90%] p-7 h-[30%] overflow-y-scroll md:w-[45%] md:h-[27%] scrollbar-hide text-xl scale-0 sm:text-sm sm:max-w-sm sm:p-6 md:text-lg md:p-4 md:max-w-xl text-white group-hover:scale-100">
             {result.overview}
           </p>
           <Image

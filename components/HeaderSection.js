@@ -14,11 +14,11 @@ import {
 import HeaderItem from "./HeaderItem";
 function HeaderSection() {
   return (
-    <div className="h-[70vh] bg-slate-300 flex flex-col ">
+    <div className="h-[70vh] bg-slate-300 flex flex-col xl:h-[80vh] ">
       <Header />
 
-      <div className="h-[42vh] md:border-0 rounded-lg flex flex-col md:bg-slate-300 mx-auto max-w-lg sm:max-w-7xl ">
-        <h1 className="m-4 text-center font-bold text-2xl sm:text-4xl md:text-7xl  text-slate-700 sm:mt-10">
+      <div className="md:border-0 rounded-lg flex flex-col mx-auto max-w-lg sm:max-w-7xl ">
+        <h1 className="m-4 text-center font-bold text-2xl sm:text-4xl md:text-6xl  text-slate-700 sm:mt-10">
           Movie Recommendations
         </h1>
         <div className="flex flex-col xl:flex-row xl:w-[70vw] items-center mt-2">
