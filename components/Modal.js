@@ -1,16 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Thumbnail from "./Thumbnail";
 import { XIcon } from "@heroicons/react/outline";
 import Movies from "./Movies";
+import Recs from "./Recs";
 
 function Modal({ open, children, onClose, title, emptyTitle }) {
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
+  const [error, setError] = useState(true);
   if (!open) return null;
-  
-  const result = await fetch(
-    `https://localhost:8080/recommend?watchedMovie=${title}`
-  ).then((res) => res.json());
+
+  async function result() {
+    return await fetch(
+      `http://localhost:8080/recommend?watchedMovie=Star Wars`,
+      {
+        method: "post",
+      }
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("No match found");
+        } else {
+          setError(false);
+          res.json();
+        }
+      })
+      .catch((err) => {
+        setError(true);
+        console.log("caught error");
+      });
+  }
+
+  result();
 
   function reset() {
     onClose();
@@ -37,8 +58,8 @@ function Modal({ open, children, onClose, title, emptyTitle }) {
           width={1920}
         />
       </div>
-
-      <Movies results={}/>
+      {error ? <p>ERROR</p> : <Recs results={result()} />}
+      {/* <Movies results={}/> */}
     </div>
   );
 }
