@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import Thumbnail from "./Thumbnail";
 import { XIcon } from "@heroicons/react/outline";
 import Movies from "./Movies";
 import Recs from "./Recs";
 
-function Modal({ open, children, onClose, title, emptyTitle }) {
+function Modal({ open, children, onClose, title, emptyTitle, cont }) {
+  const router = useRouter();
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
   const [error, setError] = useState(true);
   if (!open) return null;
@@ -16,24 +18,20 @@ function Modal({ open, children, onClose, title, emptyTitle }) {
       {
         method: "post",
       }
-    )
-      .then((res) => {
-        if (!res.ok) {
-          throw Error("No match found");
-        } else {
-          setError(false);
-          res.json();
-        }
-      })
-      .catch((err) => {
+    ).then(function (res) {
+      if (!res.ok) {
         setError(true);
-        console.log("caught error");
-      });
+      } else {
+        setError(false);
+      }
+      return res.json();
+    });
   }
 
-  result();
+  const l = result();
 
   function reset() {
+    router.push(`/?genre=${cont}`, null, { shallow: true });
     onClose();
     emptyTitle();
   }
@@ -58,7 +56,7 @@ function Modal({ open, children, onClose, title, emptyTitle }) {
           width={1920}
         />
       </div>
-      {error ? <p>ERROR</p> : <Recs results={result()} />}
+      {error ? <p>ERROR</p> : <Recs results={l} />}
       {/* <Movies results={}/> */}
     </div>
   );

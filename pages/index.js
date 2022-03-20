@@ -20,6 +20,7 @@ export default function Home({ results, cont }) {
       <Nav cont={cont} />
 
       <Movies
+        cont={cont}
         results={results}
         setOpen={() => setIsOpen(true)}
         setTitle={setTitle}
@@ -29,6 +30,7 @@ export default function Home({ results, cont }) {
         title={title}
         onClose={() => setIsOpen(false)}
         emptyTitle={() => setTitle({})}
+        cont={cont}
       >
         {" "}
       </Modal>

@@ -3,7 +3,6 @@ import requests from "../utils/requests";
 
 function HeaderItem({ title, Icon, cont }) {
   const router = useRouter();
-  console.log(cont);
   return (
     <div
       onClick={() => router.push(`/?genre=${title}`)}
