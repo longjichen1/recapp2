@@ -18,8 +18,12 @@ function Recs({ results }) {
   //   console.log(getRecs());
 
   return (
-    <div className="overflow-scroll z-20 flex flex-row">
-      {mounted ? resultArray.map((d) => <p>{d}</p>) : <p>hi</p>}
+    <div className="overflow-scroll pt-6 flex flex-row scrollbar-hide">
+      {mounted ? (
+        resultArray.map((d) => <p className="p-5">{d}</p>)
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }

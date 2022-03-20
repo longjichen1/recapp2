@@ -14,7 +14,9 @@ function Modal({ open, children, onClose, title, emptyTitle, cont }) {
 
   async function result() {
     return await fetch(
-      `http://localhost:8080/recommend?watchedMovie=Star Wars`,
+      `http://localhost:8080/recommend?watchedMovie=${
+        title.original_name || title.title
+      }`,
       {
         method: "post",
       }
@@ -36,17 +38,17 @@ function Modal({ open, children, onClose, title, emptyTitle, cont }) {
     emptyTitle();
   }
   return (
-    <div className="fixed  z-10 top-[50%] left-[50%] border-0 rounded-sm text-white ease-in bg-slate-600 p-12 -translate-x-[50%] -translate-y-[50%] w-[80vw] h-[80vh]">
+    <div className="fixed z-10  top-[50%] left-[50%] border-0 rounded-sm text-white ease-in bg-slate-600 p-12 -translate-x-[50%] -translate-y-[50%] w-[80vw] h-[80vh]">
       <button className="absolute top-0 right-0 p-5" onClick={reset}>
         <XIcon className="h-5" />
       </button>
 
-      <div className="max-w-[90%] mx-auto justify-center cursor-pointer">
-        <p className="text-center pb-4 font-bold">
+      <div className="max-w-[90%] lg:max-w-[40%] mx-auto -my-6 justify-center">
+        <p className="text-center pb-4  font-bold">
           {title.title || title.original_name}
         </p>
         <Image
-          className="group-hover:opacity-30 border-0 rounded-sm"
+          className="border-0 rounded-sm"
           layout="responsive"
           src={
             `${BASE_URL}${title.backdrop_path || title.poster_path}` ||
@@ -56,7 +58,13 @@ function Modal({ open, children, onClose, title, emptyTitle, cont }) {
           width={1920}
         />
       </div>
-      {error ? <p>ERROR</p> : <Recs results={l} />}
+      {error ? (
+        <p className="p-6">
+          Sorry! We don't have recommendations for this movie just yet.
+        </p>
+      ) : (
+        <Recs results={l} />
+      )}
       {/* <Movies results={}/> */}
     </div>
   );
