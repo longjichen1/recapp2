@@ -10,7 +10,7 @@ function Thumbnail({ result, setOpen, setTitle, clickAble = false, cont }) {
     if (!clickAble) return;
     setOpen();
     router.push(
-      `/?genre=${cont}/?movie=${result.title || result.original_name}`,
+      `/?${cont}/?movie=${result.title || result.original_name}`,
       null,
       { shallow: true }
     );

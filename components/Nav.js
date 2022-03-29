@@ -11,7 +11,7 @@ import {
   ThumbUpIcon,
 } from "@heroicons/react/outline";
 import HeaderItem from "../components/HeaderItem";
-function Nav({ cont, setContent, content, setResult }) {
+function Nav({ cont, setContent, content, setResult, setSearchValue }) {
   return (
     <div className="flex flex-grow justify-evenly mx-auto text-white bg-slate-700 p-6 ">
       <HeaderItem
@@ -21,6 +21,7 @@ function Nav({ cont, setContent, content, setResult }) {
         setContent={setContent}
         content={content}
         setResult={setResult}
+        setSearchValue={setSearchValue}
       />
       <HeaderItem
         title="WATCHED"
@@ -29,6 +30,7 @@ function Nav({ cont, setContent, content, setResult }) {
         setContent={setContent}
         content={content}
         setResult={setResult}
+        setSearchValue={setSearchValue}
       />
       <HeaderItem
         title="DISCOVER"
@@ -37,6 +39,7 @@ function Nav({ cont, setContent, content, setResult }) {
         setContent={setContent}
         content={content}
         setResult={setResult}
+        setSearchValue={setSearchValue}
       />
     </div>
   );

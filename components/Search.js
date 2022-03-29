@@ -9,6 +9,8 @@ function Search({
   setRecs,
   watched,
   setWatched,
+  searchValue,
+  setSearchValue,
 }) {
   const API_KEY = "1985ea9f71a9f54b4301260f1e18311a";
   const [search, setSearch] = useState("");
@@ -21,6 +23,8 @@ function Search({
   }
 
   async function findSearch(title) {
+    setSearchValue(title);
+
     let newResults = [];
     if (genre === "HOME") {
       newResults = await result(title);
@@ -55,7 +59,9 @@ function Search({
       <input
         className={`"w-[80vw] p-5 h-10 border-0 rounded-xl placeholder-italic`}
         placeholder="Find your favorites..."
-        onChange={(event) => findSearch(event.target.value)}
+        onChange={(event) => {
+          findSearch(event.target.value);
+        }}
       />
     </div>
   );

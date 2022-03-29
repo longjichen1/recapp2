@@ -33,7 +33,7 @@ function Modal({ open, children, onClose, title, emptyTitle, cont }) {
   const l = result();
 
   function reset() {
-    router.push(`/?genre=${cont}`, null, { shallow: true });
+    router.push(`/?${cont}`, null, { shallow: true });
     onClose();
     emptyTitle();
   }

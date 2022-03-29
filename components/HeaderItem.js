@@ -1,13 +1,21 @@
 import { useRouter } from "next/router";
 import requests from "../utils/requests";
 
-function HeaderItem({ title, Icon, cont, setContent, content, setResult }) {
+function HeaderItem({
+  title,
+  Icon,
+  cont,
+  setContent,
+  content,
+  setResult,
+  setSearchValue,
+}) {
   const router = useRouter();
 
   return (
     <div
       onClick={() => {
-        router.push(`/?genre=${title}`, null, { shallow: true });
+        router.push(`/?${title}`, null, { shallow: true });
         setContent(title);
         if (title === "HOME") {
           setResult();
@@ -15,6 +23,7 @@ function HeaderItem({ title, Icon, cont, setContent, content, setResult }) {
         } else if (title === "WATCHED") {
           setResult([]);
         }
+        setSearchValue("");
       }}
       className="items-center cursor-pointer w-20 sm:w-40 flex flex-col group hover:text-white"
     >

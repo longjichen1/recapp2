@@ -17,6 +17,7 @@ export default function Home({ results }) {
   const [content, setContent] = useState("HOME");
   const [result, setResult] = useState(results);
   const [watched, setWatched] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
   if (watched.length == 0) {
     setWatched([
       { title: "tom" },
@@ -36,6 +37,7 @@ export default function Home({ results }) {
         setContent={setContent}
         content={content}
         setResult={setResult}
+        setSearchValue={setSearchValue}
       />
       <Search
         setSearchResults={setSearchResults}
@@ -46,6 +48,8 @@ export default function Home({ results }) {
         setRecs={setRecs}
         watched={watched}
         setWatched={setWatched}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
       />
       <Movies
         isOpen={isOpen}
@@ -58,6 +62,7 @@ export default function Home({ results }) {
         finalResults={result}
         watched={watched}
         recs={recs}
+        searchValue={searchValue}
       />
       <Modal
         open={isOpen}
@@ -72,7 +77,7 @@ export default function Home({ results }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   let request = await fetch(`${requests.HOME.url}`).then((res) => res.json());
 
   let result = request.results;

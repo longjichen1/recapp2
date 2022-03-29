@@ -10,17 +10,19 @@ function Recs({ results, genre }) {
   }
   getRecs();
   useEffect(() => {
-    console.log(resultArray);
-    console.log(mounted);
     setMounted(false);
   }, [resultArray, genre]);
 
   //   console.log(getRecs());
-
+  let i = 0;
   return (
     <div className="overflow-scroll pt-6 flex flex-row scrollbar-hide">
       {mounted ? (
-        resultArray.map((d) => <p className="p-5">{d}</p>)
+        resultArray.slice(0, 50).map((d) => (
+          <p key={i++} className="p-5">
+            {d}
+          </p>
+        ))
       ) : (
         <p>Loading...</p>
       )}

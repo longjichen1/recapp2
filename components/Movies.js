@@ -13,6 +13,7 @@ function Movies({
   finalResults,
   watched,
   recs,
+  searchValue,
 }) {
   const EmptyResult = () => {
     return (
@@ -29,9 +30,10 @@ function Movies({
   */
   if (cont === "WATCHED") {
     displayResults = watched;
-    console.log(finalResults);
+  } else if (cont === "DISCOVER") {
+    displayResults = recs;
   }
-  if (isSearch === true) {
+  if (isSearch === true && searchValue !== "") {
     displayResults = searchResults;
   }
 
