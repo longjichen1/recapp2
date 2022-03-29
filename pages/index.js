@@ -6,22 +6,39 @@ import HeaderSection from "../components/HeaderSection";
 import Modal from "../components/Modal";
 import Movies from "../components/Movies";
 import Nav from "../components/Nav";
+import Search from "../components/Search";
 import requests from "../utils/requests";
 
 export default function Home({ results, cont }) {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState({});
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearch, setIsSearch] = useState("");
+  if (searchResults.length == 0) {
+    setSearchResults([
+      { title: "Spiderman", description: "tom holland" },
+      { title: "spider", description: "not tom" },
+    ]);
+  }
   return (
     <div>
       <Head>
         <title>CS 3254</title>
       </Head>
-      <HeaderSection />
+      <HeaderSection isOpen={isOpen} />
       <Nav cont={cont} />
-
+      <Search
+        setSearchResults={setSearchResults}
+        setIsSearch={setIsSearch}
+        isOpen={isOpen}
+        genre={cont}
+      />
       <Movies
+        isOpen={isOpen}
         cont={cont}
+        searchResults={searchResults}
         results={results}
+        isSearch={isSearch}
         setOpen={() => setIsOpen(true)}
         setTitle={setTitle}
       />

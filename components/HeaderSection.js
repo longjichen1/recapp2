@@ -12,9 +12,13 @@ import {
   SearchIcon,
 } from "@heroicons/react/outline";
 import HeaderItem from "./HeaderItem";
-function HeaderSection() {
+function HeaderSection({ isOpen }) {
   return (
-    <div className="h-[70vh] bg-slate-300 flex flex-col xl:h-[80vh] ">
+    <div
+      className={`h-[70vh] bg-slate-300 flex flex-col xl:h-[80vh] ${
+        isOpen ? "opacity-50" : ""
+      }`}
+    >
       <Header />
 
       <div className="md:border-0 rounded-lg flex flex-col mx-auto max-w-lg sm:max-w-7xl ">
