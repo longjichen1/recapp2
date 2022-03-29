@@ -42,7 +42,7 @@ function Modal({ open, children, onClose, title, emptyTitle, cont }) {
       className={`fixed z-10  top-[50%] left-[50%] border-0 rounded-sm text-slate-600 bg-[#ebf0f7] -translate-x-[50%] -translate-y-[50%] w-[80vw] ${
         error
           ? "h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] md:w-[60vw]"
-          : "h-[75vh] sm:h-[95vh] sm:w-[45vw]"
+          : "h-[75vh] sm:h-[95vh] lg:w-[60vw] xl:w-[50vw]"
       }`}
     >
       <button

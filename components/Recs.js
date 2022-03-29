@@ -29,7 +29,9 @@ function Recs({ results, genre }) {
   async function getAllMovies(newArray) {
     newArray.forEach(async (title) => {
       const gotMovie = await GetMovie(title);
-      donut.push(gotMovie);
+      if (donut.indexOf(gotMovie) == -1) {
+        donut.push(gotMovie);
+      }
     });
   }
   if (donut.length === 0) {
