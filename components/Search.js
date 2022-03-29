@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 
-function Search({ setSearchResults, setIsSearch, isOpen, genre }) {
+function Search({
+  setSearchResults,
+  setIsSearch,
+  isOpen,
+  genre,
+  recs,
+  setRecs,
+  watched,
+  setWatched,
+}) {
   const API_KEY = "1985ea9f71a9f54b4301260f1e18311a";
   const [search, setSearch] = useState("");
   async function result(search) {
@@ -15,8 +24,19 @@ function Search({ setSearchResults, setIsSearch, isOpen, genre }) {
     let newResults = [];
     if (genre === "HOME") {
       newResults = await result(title);
+    } else if (genre === "WATCHED") {
+      newResults = watched.filter(
+        (movie) =>
+          movie.title?.includes(title.toLowerCase()) ||
+          movie.original_name?.includes(title.toLowerCase())
+      );
+    } else if (genre === "DISCOVER") {
+      newResults = recs.filter(
+        (movie) =>
+          movie.title?.includes(title.toLowerCase()) ||
+          movie.original_name?.includes(title.toLowerCase())
+      );
     }
-
     if (title.length == 0) {
       setIsSearch(false);
       setSearchResults([]);
@@ -29,13 +49,13 @@ function Search({ setSearchResults, setIsSearch, isOpen, genre }) {
   return (
     <div
       className={`${
-        isOpen ? "opacity-50" : ""
+        isOpen ? "opacity-80" : ""
       } border-0 rounded-xl pt-10 w-[80vw] flex flex-col justify-center mx-auto`}
     >
       <input
         className={`"w-[80vw] p-5 h-10 border-0 rounded-xl placeholder-italic`}
         placeholder="Find your favorites..."
-        onChange={(e) => findSearch(event.target.value)}
+        onChange={(event) => findSearch(event.target.value)}
       />
     </div>
   );

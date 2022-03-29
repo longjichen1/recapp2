@@ -63,7 +63,7 @@ function Modal({ open, children, onClose, title, emptyTitle, cont }) {
           Sorry! We don't have recommendations for this movie just yet.
         </p>
       ) : (
-        <Recs results={l} />
+        <Recs results={l} genre={cont} />
       )}
       {/* <Movies results={}/> */}
     </div>

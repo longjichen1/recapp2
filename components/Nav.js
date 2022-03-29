@@ -11,13 +11,33 @@ import {
   ThumbUpIcon,
 } from "@heroicons/react/outline";
 import HeaderItem from "../components/HeaderItem";
-function Nav({ cont }) {
-  console.log("hi" + cont);
+function Nav({ cont, setContent, content, setResult }) {
   return (
     <div className="flex flex-grow justify-evenly mx-auto text-white bg-slate-700 p-6 ">
-      <HeaderItem title="HOME" Icon={HomeIcon} cont={cont} />
-      <HeaderItem title="WATCHED" Icon={UserIcon} cont={cont} />
-      <HeaderItem title="DISCOVER" Icon={ThumbUpIcon} cont={cont} />
+      <HeaderItem
+        title="HOME"
+        Icon={HomeIcon}
+        cont={cont}
+        setContent={setContent}
+        content={content}
+        setResult={setResult}
+      />
+      <HeaderItem
+        title="WATCHED"
+        Icon={UserIcon}
+        cont={cont}
+        setContent={setContent}
+        content={content}
+        setResult={setResult}
+      />
+      <HeaderItem
+        title="DISCOVER"
+        Icon={ThumbUpIcon}
+        cont={cont}
+        setContent={setContent}
+        content={content}
+        setResult={setResult}
+      />
     </div>
   );
 }

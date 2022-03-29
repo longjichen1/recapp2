@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Recs({ results }) {
+function Recs({ results, genre }) {
   const [mounted, setMounted] = useState(false);
   const [resultArray, setResultArray] = useState([]);
   async function getRecs() {
@@ -13,7 +13,7 @@ function Recs({ results }) {
     console.log(resultArray);
     console.log(mounted);
     setMounted(false);
-  }, resultArray);
+  }, [resultArray, genre]);
 
   //   console.log(getRecs());
 

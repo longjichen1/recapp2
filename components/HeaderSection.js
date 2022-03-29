@@ -12,7 +12,7 @@ import {
   SearchIcon,
 } from "@heroicons/react/outline";
 import HeaderItem from "./HeaderItem";
-function HeaderSection({ isOpen }) {
+function HeaderSection({ isOpen, setContent }) {
   return (
     <div
       className={`h-[70vh] bg-slate-300 flex flex-col xl:h-[80vh] ${
