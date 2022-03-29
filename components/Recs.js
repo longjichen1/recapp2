@@ -29,7 +29,7 @@ function Recs({ results, genre }) {
   async function getAllMovies(newArray) {
     newArray.forEach(async (title) => {
       const gotMovie = await GetMovie(title);
-      if (donut.indexOf(gotMovie) == -1) {
+      if (donut.indexOf(gotMovie) === -1) {
         donut.push(gotMovie);
       }
     });
@@ -61,10 +61,10 @@ function Recs({ results, genre }) {
         ? Buffer.from(str).toString("base64")
         : window.btoa(str);
     return (
-      <div className="grid">
-        <div className="flex flex-col justify-center  border-2  w-64 h-36 rounded-md">
+      <div className="rounded-bl-md rounded-br-md">
+        <div className="flex flex-col justify-center p-0 m-0 w-[17rem] h-36">
           <Image
-            className="fill"
+            className="contain border-8 border-slate-600"
             layout="responsive"
             src={
               `${BASE_URL}${a.backdrop_path || a.poster_path}` ||
@@ -78,7 +78,9 @@ function Recs({ results, genre }) {
             )}`}
           />
         </div>
-        <p className="text-center">{a.title || a.original_name}</p>
+        <p className="text-center font-bold font-sans">
+          {a.title || a.original_name}
+        </p>
       </div>
     );
   };

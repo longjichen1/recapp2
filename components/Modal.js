@@ -61,7 +61,7 @@ function Modal({ open, children, onClose, title, emptyTitle, cont }) {
           {title.title || title.original_name}
         </p>
         <Image
-          className="absolute opacity-70 border-0 -my-44 rounded-sm cursor-default"
+          className="absolute outline-2  opacity-70 -my-44 rounded-sm cursor-default"
           layout="responsive"
           src={
             `${BASE_URL}${title.backdrop_path || title.poster_path}` ||
@@ -71,8 +71,8 @@ function Modal({ open, children, onClose, title, emptyTitle, cont }) {
           width={1920}
         />
       </div>
-      <div className="flex flex-col justify-center">
-        <h1 className="mt-8 text-lg font-bold text-center">Recommendations</h1>
+      <div className="flex flex-col justify-center bg-[#ebf0f7]">
+        <h1 className="mt-2 text-lg font-bold text-center">Recommendations</h1>
         {error ? (
           <p className="p-6 text-center mx-auto w-2/3">
             Sorry! We don't have recommendations for this movie just yet.

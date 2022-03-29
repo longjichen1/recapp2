@@ -20,7 +20,7 @@ export default function Home({ results }) {
   const [searchValue, setSearchValue] = useState("");
   if (watched.length == 0) {
     setWatched([
-      { title: "tom" },
+      { title: "Spider-Man" },
       { title: "tommy" },
       { original_name: "beyonce" },
     ]);
