@@ -38,7 +38,7 @@ function Thumbnail({ result, setOpen, setTitle, clickAble = false, cont }) {
     <>
       <div onClick={setInfo} className="group p-2 ">
         <div className="flex flex-col justify-center cursor-pointer border-2 rounded-md">
-          <p className="absolute  -transform-x-[50%] -transform-y-[50%] xl:w-[30%] xl:h-[25%] w-[90%] p-7 h-[30%] overflow-y-scroll md:w-[45%] md:h-[27%] scrollbar-hide text-xl scale-0   sm:p-6  md:p-4 md:max-w-xl text-white group-hover:scale-100">
+          <p className="absolute -mt-8 -transform-x-[50%] -transform-y-[50%] xl:w-[30%] xl:h-[25%] w-[90%] p-7 h-[25%] overflow-y-scroll md:w-[45%] md:h-[27%] scrollbar-hide text-xl scale-0   sm:p-6  md:p-4 md:max-w-xl text-white group-hover:scale-100">
             {result.overview}
           </p>
           <Image

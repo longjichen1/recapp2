@@ -24,10 +24,7 @@ function Movies({
   };
 
   let displayResults = finalResults || results;
-  // TODO - UPDATE SEARCH RESULTS BY GENRE FIRST AND THEN UPDATE THIS
-  /*
-    move if (cont === "watched") etc above isSearch and also add a "discover"
-  */
+
   if (cont === "WATCHED") {
     displayResults = watched;
   } else if (cont === "DISCOVER") {
