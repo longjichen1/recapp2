@@ -3,11 +3,21 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Modal from "./Modal";
 
-function Thumbnail({ result, setOpen, setTitle, clickAble = false, cont }) {
+function Thumbnail({
+  result,
+  setOpen,
+  title,
+  setTitle,
+  clickAble = false,
+  cont,
+  watched,
+  setAddMessage,
+}) {
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
   const router = useRouter();
   function setInfo() {
     if (!clickAble) return;
+    setAddMessage(`${watched.indexOf(title) === -1 ? "Add" : "Remove"}`);
     setOpen();
     router.push(
       `/?${cont}/?movie=${result.title || result.original_name}`,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Thumbnail from "./Thumbnail";
@@ -6,11 +6,24 @@ import { XIcon } from "@heroicons/react/outline";
 import Movies from "./Movies";
 import Recs from "./Recs";
 
-function Modal({ open, children, onClose, title, emptyTitle, cont }) {
+function Modal({
+  open,
+  children,
+  onClose,
+  title,
+  emptyTitle,
+  setTitle,
+  cont,
+  watched,
+  addMessage,
+  setAddMessage,
+}) {
   const router = useRouter();
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
   const [error, setError] = useState(true);
+
   if (!open) return null;
+  setAddMessage(`${watched.indexOf(title) === -1 ? "Add" : "Remove"}`);
 
   async function result() {
     return await fetch(
@@ -30,9 +43,24 @@ function Modal({ open, children, onClose, title, emptyTitle, cont }) {
     });
   }
 
-  const l = result();
+  const recResult = result();
+
+  const handleWatched = (e) => {
+    if (watched.indexOf(title) === -1) {
+      console.log("add");
+      watched.push(title);
+      setAddMessage("Remove");
+    } else {
+      console.log(watched);
+      watched.splice(watched.indexOf(title), 1);
+      setAddMessage("Add");
+    }
+    console.log("here" + e);
+    console.log(watched);
+  };
 
   function reset() {
+    setTitle({});
     router.push(`/?${cont}`, null, { shallow: true });
     onClose();
     emptyTitle();
@@ -60,6 +88,16 @@ function Modal({ open, children, onClose, title, emptyTitle, cont }) {
         <p className="absolute z-10 left-0 bottom-0 p-5 font-bold text-white">
           {title.title || title.original_name}
         </p>
+        {error ? (
+          <p></p>
+        ) : (
+          <p
+            onClick={(e) => handleWatched(e)}
+            className="absolute cursor-pointer z-10 right-3 bottom-3 border-0 rounded-xl p-2 font-bold bg-black text-white"
+          >
+            {addMessage}
+          </p>
+        )}
         <Image
           className="absolute outline-2  opacity-70 -my-44 rounded-sm cursor-default"
           layout="responsive"
@@ -78,7 +116,7 @@ function Modal({ open, children, onClose, title, emptyTitle, cont }) {
             Sorry! We don't have recommendations for this movie just yet.
           </p>
         ) : (
-          <Recs results={l} genre={cont} />
+          <Recs results={recResult} genre={cont} />
         )}
       </div>
     </div>

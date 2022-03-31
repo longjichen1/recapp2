@@ -8,7 +8,6 @@ function Search({
   recs,
   setRecs,
   watched,
-  setWatched,
   searchValue,
   setSearchValue,
 }) {
@@ -31,14 +30,14 @@ function Search({
     } else if (genre === "WATCHED") {
       newResults = watched.filter(
         (movie) =>
-          movie.title?.includes(title.toLowerCase()) ||
-          movie.original_name?.includes(title.toLowerCase())
+          movie.title?.toLowerCase().includes(title.toLowerCase()) ||
+          movie.original_name?.toLowerCase().includes(title.toLowerCase())
       );
     } else if (genre === "DISCOVER") {
       newResults = recs.filter(
         (movie) =>
-          movie.title?.includes(title.toLowerCase()) ||
-          movie.original_name?.includes(title.toLowerCase())
+          movie.title?.toLowerCase().includes(title.toLowerCase()) ||
+          movie.original_name?.toLowerCase().includes(title.toLowerCase())
       );
     }
     if (title.length == 0) {

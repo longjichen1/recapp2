@@ -5,6 +5,7 @@ import Thumbnail from "./Thumbnail";
 function Movies({
   results,
   setOpen,
+  title,
   setTitle,
   cont,
   searchResults,
@@ -14,6 +15,7 @@ function Movies({
   watched,
   recs,
   searchValue,
+  setAddMessage,
 }) {
   const EmptyResult = () => {
     return (
@@ -45,10 +47,13 @@ function Movies({
           <Thumbnail
             cont={cont}
             clickAble={true}
+            title={title}
             setOpen={setOpen}
             key={result.id}
             result={result}
             setTitle={setTitle}
+            watched={watched}
+            setAddMessage={setAddMessage}
           />
         ))
       ) : (

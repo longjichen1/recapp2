@@ -8,7 +8,7 @@ import Movies from "../components/Movies";
 import Nav from "../components/Nav";
 import Search from "../components/Search";
 import requests from "../utils/requests";
-
+const watched = [];
 export default function Home({ results }) {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState({});
@@ -16,15 +16,11 @@ export default function Home({ results }) {
   const [isSearch, setIsSearch] = useState("");
   const [content, setContent] = useState("HOME");
   const [result, setResult] = useState(results);
-  const [watched, setWatched] = useState([]);
+  const [addMessage, setAddMessage] = useState(
+    `${watched.indexOf(title) === -1 ? "Add" : "Remove"}`
+  );
   const [searchValue, setSearchValue] = useState("");
-  if (watched.length == 0) {
-    setWatched([
-      { title: "Spider-Man" },
-      { title: "tommy" },
-      { original_name: "beyonce" },
-    ]);
-  }
+
   const [recs, setRecs] = useState([]);
   return (
     <div>
@@ -47,12 +43,12 @@ export default function Home({ results }) {
         recs={recs}
         setRecs={setRecs}
         watched={watched}
-        setWatched={setWatched}
         searchValue={searchValue}
         setSearchValue={setSearchValue}
       />
       <Movies
         isOpen={isOpen}
+        title={title}
         cont={content}
         searchResults={searchResults}
         results={results}
@@ -63,13 +59,18 @@ export default function Home({ results }) {
         watched={watched}
         recs={recs}
         searchValue={searchValue}
+        setAddMessage={setAddMessage}
       />
       <Modal
+        setTitle={setTitle}
         open={isOpen}
         title={title}
         onClose={() => setIsOpen(false)}
         emptyTitle={() => setTitle({})}
         cont={content}
+        watched={watched}
+        addMessage={addMessage}
+        setAddMessage={setAddMessage}
       >
         {" "}
       </Modal>
