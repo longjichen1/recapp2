@@ -9,6 +9,7 @@ import Nav from "../components/Nav";
 import Search from "../components/Search";
 import requests from "../utils/requests";
 const watched = [];
+const watchedNames = [];
 export default function Home({ results }) {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState({});
@@ -71,6 +72,7 @@ export default function Home({ results }) {
         watched={watched}
         addMessage={addMessage}
         setAddMessage={setAddMessage}
+        watchedNames={watchedNames}
       >
         {" "}
       </Modal>

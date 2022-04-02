@@ -19,11 +19,9 @@ function Thumbnail({
     if (!clickAble) return;
     setAddMessage(`${watched.indexOf(title) === -1 ? "Add" : "Remove"}`);
     setOpen();
-    router.push(
-      `/?${cont}/?movie=${result.title || result.original_name}`,
-      null,
-      { shallow: true }
-    );
+    router.push(`/?movie=${result.title || result.original_name}`, null, {
+      shallow: true,
+    });
     setTitle(result);
   }
   const convertImage = (w, h) => `

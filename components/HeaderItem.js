@@ -10,12 +10,9 @@ function HeaderItem({
   setResult,
   setSearchValue,
 }) {
-  const router = useRouter();
-
   return (
     <div
       onClick={() => {
-        router.push(`/?${title}`, null, { shallow: true });
         setContent(title);
         if (title === "HOME") {
           setResult();

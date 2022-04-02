@@ -17,8 +17,8 @@ function Modal({
   watched,
   addMessage,
   setAddMessage,
+  watchedNames,
 }) {
-  const router = useRouter();
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
   const [error, setError] = useState(true);
 
@@ -42,26 +42,43 @@ function Modal({
       return res.json();
     });
   }
+  console.log(JSON.stringify(watchedNames));
+  async function recMany() {
+    return await fetch(`http://localhost:8080/recommend-many`, {
+      method: "post",
 
+      mode: "cors",
+      body: JSON.stringify(watchedNames),
+    }).then(function (res) {
+      return res.json();
+    });
+  }
+  const recManyResult = recMany();
+  console.log(recManyResult);
   const recResult = result();
 
   const handleWatched = (e) => {
     if (watched.indexOf(title) === -1) {
       console.log("add");
       watched.push(title);
+      watchedNames.push(title.title || title.original_name);
+      console.log(watchedNames);
       setAddMessage("Remove");
     } else {
       console.log(watched);
       watched.splice(watched.indexOf(title), 1);
+      watchedNames.splice(
+        watchedNames.indexOf(title.title || title.original_name),
+        1
+      );
+      console.log(watchedNames);
       setAddMessage("Add");
     }
-    console.log("here" + e);
     console.log(watched);
   };
 
   function reset() {
     setTitle({});
-    router.push(`/?${cont}`, null, { shallow: true });
     onClose();
     emptyTitle();
   }
