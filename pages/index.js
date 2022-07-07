@@ -10,6 +10,7 @@ import Search from "../components/Search";
 import requests from "../utils/requests";
 const watched = [];
 const watchedNames = [];
+let donut = [];
 export default function Home({ results }) {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState({});
@@ -54,7 +55,10 @@ export default function Home({ results }) {
         searchResults={searchResults}
         results={results}
         isSearch={isSearch}
-        setOpen={() => setIsOpen(true)}
+        setOpen={() => {
+          setIsOpen(true);
+          donut = [];
+        }}
         setTitle={setTitle}
         finalResults={result}
         watched={watched}
@@ -73,6 +77,7 @@ export default function Home({ results }) {
         addMessage={addMessage}
         setAddMessage={setAddMessage}
         watchedNames={watchedNames}
+        donut={donut}
       >
         {" "}
       </Modal>

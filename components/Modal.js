@@ -18,9 +18,11 @@ function Modal({
   addMessage,
   setAddMessage,
   watchedNames,
+  donut,
 }) {
-  const BASE_URL = "https://image.tmdb.org/t/p/original/";
   const [error, setError] = useState(true);
+  const [resultArray, setResultArray] = useState([]);
+  const BASE_URL = "https://image.tmdb.org/t/p/original/";
 
   if (!open) return null;
   setAddMessage(`${watched.indexOf(title) === -1 ? "Add" : "Remove"}`);
@@ -35,9 +37,7 @@ function Modal({
       }
     ).then(function (res) {
       if (!res.ok) {
-        setError(true);
-      } else {
-        setError(false);
+        return [];
       }
       return res.json();
     });
@@ -53,11 +53,10 @@ function Modal({
       return res.json();
     });
   }
-  const recManyResult = recMany();
-  console.log(recManyResult);
-  const recResult = result();
 
-  const handleWatched = (e) => {
+  const recResult = result();
+  console.log(recResult);
+  const handleWatched = () => {
     if (watched.indexOf(title) === -1) {
       console.log("add");
       watched.push(title);
@@ -109,7 +108,7 @@ function Modal({
           <p></p>
         ) : (
           <p
-            onClick={(e) => handleWatched(e)}
+            onClick={handleWatched}
             className="absolute cursor-pointer z-10 right-3 bottom-3 border-0 rounded-xl p-2 font-bold bg-black text-white"
           >
             {addMessage}
@@ -128,13 +127,14 @@ function Modal({
       </div>
       <div className="flex flex-col justify-center bg-[#ebf0f7]">
         <h1 className="mt-2 text-lg font-bold text-center">Recommendations</h1>
-        {error ? (
-          <p className="p-6 text-center mx-auto w-2/3">
-            Sorry! We don't have recommendations for this movie just yet.
-          </p>
-        ) : (
-          <Recs results={recResult} genre={cont} />
-        )}
+
+        <Recs
+          results={recResult}
+          genre={cont}
+          donut={donut}
+          resultArray={resultArray}
+          setResultArray={setResultArray}
+        />
       </div>
     </div>
   );

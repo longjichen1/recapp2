@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Thumbnail from "./Thumbnail";
 import RecMovie from "./RecMovie";
-const donut = [];
 
-function Recs({ results }) {
-  const [resultArray, setResultArray] = useState([]);
+function Recs({ results, donut, resultArray, setResultArray }) {
   const [movieArray, setMovieArray] = useState([]);
+
   async function getRecs() {
     const a = await results;
     setResultArray(a);
@@ -32,18 +31,18 @@ function Recs({ results }) {
         donut.push(gotMovie);
       }
     });
+    console.log("count");
   }
   if (donut.length <= 0) {
-    console.log("HI");
     getAllMovies(newArray);
   }
 
   let i = 0;
   return (
     <div className="overflow-scroll flex flex-row scrollbar-hide">
-      {newArray.length > 49 ? (
+      {donut.length > 1 ? (
         donut.map((d) => (
-          <p key={i++} className="p-5" onClick={() => GetMovie(d)}>
+          <p key={i++} className="p-5">
             <RecMovie a={d} />
           </p>
         ))
