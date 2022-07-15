@@ -3,51 +3,45 @@ import Image from "next/image";
 import Thumbnail from "./Thumbnail";
 import RecMovie from "./RecMovie";
 
-function Recs({ results, donut, resultArray, setResultArray }) {
+function Recs({ results }) {
   const [movieArray, setMovieArray] = useState([]);
 
-  async function getRecs() {
-    const a = await results;
-    setResultArray(a);
-  }
-  getRecs();
+  useEffect(() => {
+    handleResults();
+  }, []);
 
-  const newArray = resultArray.slice(0, 50);
-
-  async function GetMovie(d) {
+  async function getMovie(d) {
     const a = await fetch(
       `https://api.themoviedb.org/3/search/movie?api_key=1985ea9f71a9f54b4301260f1e18311a&language=en-US&page=1&include_adult=false&query=${d}`
     ).then((res) => {
       return res.json();
     });
-    // console.log(a.results);
     return a.results[0];
   }
-  console.log(newArray.length);
-  async function getAllMovies(newArray) {
-    newArray.forEach(async (title) => {
-      const gotMovie = await GetMovie(title);
-      if (donut.indexOf(gotMovie) === -1) {
-        donut.push(gotMovie);
-      }
-    });
-    console.log("count");
-  }
-  if (donut.length <= 0) {
-    getAllMovies(newArray);
+
+  async function handleResults() {
+    const movieArrayd = await results;
+    const movieMetaData = await Promise.all(
+      movieArrayd.map((movie) => getMovie(movie))
+    );
+
+    setMovieArray(movieMetaData);
   }
 
-  let i = 0;
   return (
     <div className="overflow-scroll flex flex-row scrollbar-hide">
-      {donut.length > 1 ? (
-        donut.map((d) => (
-          <p key={i++} className="p-5">
-            <RecMovie a={d} />
-          </p>
-        ))
+      {movieArray.length > 0 ? (
+        movieArray.map((d, i) => {
+          return (
+            <div key={i} className="p-5">
+              <RecMovie a={d} />
+            </div>
+          );
+        })
       ) : (
-        <p>Loading...</p>
+        <div className="text-center mx-auto">
+          No Recommendations Available . . .
+        </div>
       )}
     </div>
   );

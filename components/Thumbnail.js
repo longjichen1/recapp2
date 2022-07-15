@@ -9,7 +9,6 @@ function Thumbnail({
   title,
   setTitle,
   clickAble = false,
-  cont,
   watched,
   setAddMessage,
 }) {

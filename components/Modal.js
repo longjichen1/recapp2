@@ -18,17 +18,18 @@ function Modal({
   addMessage,
   setAddMessage,
   watchedNames,
-  donut,
+  recs,
+  setRecs,
 }) {
   const [error, setError] = useState(true);
-  const [resultArray, setResultArray] = useState([]);
+  const [mounted, setMounted] = useState(false);
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
 
   if (!open) return null;
   setAddMessage(`${watched.indexOf(title) === -1 ? "Add" : "Remove"}`);
 
   async function result() {
-    return await fetch(
+    const data = await fetch(
       `http://localhost:8080/recommend?watchedMovie=${
         title.original_name || title.title
       }`,
@@ -37,45 +38,60 @@ function Modal({
       }
     ).then(function (res) {
       if (!res.ok) {
+        setError(true);
         return [];
       }
+      setError(false);
       return res.json();
     });
+    return data;
   }
-  console.log(JSON.stringify(watchedNames));
+
+  async function getMovie(d) {
+    const a = await fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=1985ea9f71a9f54b4301260f1e18311a&language=en-US&page=1&include_adult=false&query=${d}`
+    ).then((res) => {
+      return res.json();
+    });
+    return a.results[0];
+  }
   async function recMany() {
-    return await fetch(`http://localhost:8080/recommend-many`, {
-      method: "post",
-
-      mode: "cors",
-      body: JSON.stringify(watchedNames),
-    }).then(function (res) {
+    const recManyResult = await fetch(
+      `http://localhost:8080/recommend-many?recNumber=50`,
+      {
+        method: "post",
+        mode: "cors",
+        body: JSON.stringify(watchedNames),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then(function (res) {
       return res.json();
     });
+    const movieMetaData = await Promise.all(
+      recManyResult.map((movie) => getMovie(movie))
+    );
+    setRecs(movieMetaData);
   }
 
-  const recResult = result();
-  console.log(recResult);
-  const handleWatched = () => {
-    if (watched.indexOf(title) === -1) {
-      console.log("add");
+  const handleWatched = async () => {
+    if (!watched.includes(title) && !watchedNames.includes(title)) {
       watched.push(title);
       watchedNames.push(title.title || title.original_name);
-      console.log(watchedNames);
       setAddMessage("Remove");
     } else {
-      console.log(watched);
       watched.splice(watched.indexOf(title), 1);
       watchedNames.splice(
         watchedNames.indexOf(title.title || title.original_name),
         1
       );
-      console.log(watchedNames);
       setAddMessage("Add");
     }
-    console.log(watched);
+    await recMany();
   };
 
+  const recResult = result();
   function reset() {
     setTitle({});
     onClose();
@@ -85,8 +101,8 @@ function Modal({
     <div
       className={`fixed z-10  top-[50%] left-[50%] border-0 rounded-sm text-slate-600 bg-[#ebf0f7] -translate-x-[50%] -translate-y-[50%] w-[80vw] ${
         error
-          ? "h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] md:w-[60vw]"
-          : "h-[75vh] sm:h-[95vh] lg:w-[60vw] xl:w-[50vw]"
+          ? "h-[50vh] sm:h-[55vh] md:h-[65vh] lg:h-[70vh] xl:h-[80vh] md:w-[60vw]"
+          : "h-[65vh] sm:h-[30vh] sm:top-[20%] md:h-[50vh] md:top-[27%] lg:w-[65vw] lg:top-[27%] xl:w-[50vw]"
       }`}
     >
       <button
@@ -111,7 +127,9 @@ function Modal({
             onClick={handleWatched}
             className="absolute cursor-pointer z-10 right-3 bottom-3 border-0 rounded-xl p-2 font-bold bg-black text-white"
           >
-            {addMessage}
+            {watched.includes(title.title || title.original_name)
+              ? "Remove"
+              : "Add"}
           </p>
         )}
         <Image
@@ -127,14 +145,8 @@ function Modal({
       </div>
       <div className="flex flex-col justify-center bg-[#ebf0f7]">
         <h1 className="mt-2 text-lg font-bold text-center">Recommendations</h1>
-
-        <Recs
-          results={recResult}
-          genre={cont}
-          donut={donut}
-          resultArray={resultArray}
-          setResultArray={setResultArray}
-        />
+        {/* //button */}
+        <Recs results={recResult} />
       </div>
     </div>
   );
