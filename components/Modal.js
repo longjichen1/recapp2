@@ -30,12 +30,8 @@ function Modal({
 
   async function result() {
     const data = await fetch(
-      `http://localhost:8080/recommend?watchedMovie=${
-        title.original_name || title.title
-      }`,
-      {
-        method: "post",
-      }
+      `http://localhost:8080/recommend?watchedMovie=${title.original_name || title.title}&maxCount=25`,
+      { method: "get", }
     ).then(function (res) {
       if (!res.ok) {
         setError(true);
@@ -99,11 +95,10 @@ function Modal({
   }
   return (
     <div
-      className={`fixed z-10  top-[50%] left-[50%] border-0 rounded-sm text-slate-600 bg-[#ebf0f7] -translate-x-[50%] -translate-y-[50%] w-[80vw] ${
-        error
+      className={`fixed z-10  top-[50%] left-[50%] border-0 rounded-sm text-slate-600 bg-[#ebf0f7] -translate-x-[50%] -translate-y-[50%] w-[80vw] ${error
           ? "h-[50vh] sm:h-[55vh] md:h-[65vh] lg:h-[70vh] xl:h-[80vh] md:w-[60vw]"
           : "h-[65vh] sm:h-[30vh] sm:top-[20%] md:h-[50vh] md:top-[27%] lg:w-[65vw] lg:top-[27%] xl:w-[50vw]"
-      }`}
+        }`}
     >
       <button
         className="cursor-pointer absolute z-10 top-0 text-[#ebf0f7] right-0 p-5"
@@ -113,9 +108,8 @@ function Modal({
       </button>
 
       <div
-        className={`max-w-[100%] ${
-          error ? "" : ""
-        } mx-auto relative bg-slate-600 flex flex-col justify-center`}
+        className={`max-w-[100%] ${error ? "" : ""
+          } mx-auto relative bg-slate-600 flex flex-col justify-center`}
       >
         <p className="absolute z-10 left-0 bottom-0 p-5 font-bold text-white">
           {title.title || title.original_name}
