@@ -32,10 +32,8 @@ function Modal({
     const data = await fetch(
       `http://localhost:8080/recommend?watchedMovie=${
         title.original_name || title.title
-      }`,
-      {
-        method: "post",
-      }
+      }&maxCount=25`,
+      { method: "get" }
     ).then(function (res) {
       if (!res.ok) {
         setError(true);
