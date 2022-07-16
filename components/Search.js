@@ -61,6 +61,7 @@ function Search({
         onChange={(event) => {
           findSearch(event.target.value);
         }}
+        disabled={isOpen}
       />
     </div>
   );

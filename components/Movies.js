@@ -45,7 +45,8 @@ function Movies({
       {displayResults.length > 0 ? (
         displayResults.map((result) => (
           <Thumbnail
-            clickAble={true}
+            isOpen={isOpen}
+            clickAble={!isOpen}
             title={title}
             setOpen={setOpen}
             key={result.id}

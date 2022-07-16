@@ -31,6 +31,7 @@ export default function Home({ results }) {
       </Head>
       <HeaderSection isOpen={isOpen} setContent={setContent} />
       <Nav
+        isOpen={isOpen}
         cont={content}
         setContent={setContent}
         content={content}

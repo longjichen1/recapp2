@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Modal from "./Modal";
 
 function Thumbnail({
+  isOpen,
   result,
   setOpen,
   title,
@@ -44,12 +45,22 @@ function Thumbnail({
   return (
     <>
       <div onClick={setInfo} className="group p-2 ">
-        <div className="flex flex-col justify-center cursor-pointer border-2 rounded-md">
-          <p className="absolute -mt-8 -transform-x-[50%] -transform-y-[50%] xl:w-[30%] xl:h-[25%] w-[90%] p-7 h-[25%] overflow-y-scroll md:w-[45%] md:h-[27%] scrollbar-hide text-xl scale-0   sm:p-6  md:p-4 md:max-w-xl text-white group-hover:scale-100">
+        <div
+          className={`${
+            !isOpen ? "cursor-pointer" : ""
+          } flex-col justify-center border-2 rounded-md`}
+        >
+          <p
+            className={`absolute -mt-8 -transform-x-[50%] -transform-y-[50%] xl:w-[30%] xl:h-[25%] w-[90%] p-7 h-[25%] overflow-y-scroll md:w-[45%] md:h-[27%] scrollbar-hide text-xl scale-0   sm:p-6  md:p-4 md:max-w-xl text-white ${
+              !isOpen ? "group-hover:scale-100" : ""
+            }`}
+          >
             {result.overview}
           </p>
           <Image
-            className="group-hover:opacity-30 group-hover:-z-10 border-white"
+            className={`${
+              !isOpen ? "group-hover:opacity-30 group-hover:-z-10" : ""
+            } border-white`}
             layout="responsive"
             src={
               `${BASE_URL}${result.backdrop_path || result.poster_path}` ||
@@ -65,10 +76,18 @@ function Thumbnail({
         </div>
 
         <div className="p-2">
-          <h2 className="mt-1 text-2xl text-white transition-all duration-100 ease-in-out group-hover:font-bold">
+          <h2
+            className={`mt-1 text-2xl text-white transition-all duration-100 ease-in-out ${
+              !isOpen ? "group-hover:font-bold" : ""
+            }`}
+          >
             {result.title || result.original_name}
           </h2>
-          <p className="group-hover:opacity-100 opacity-0 pb-2">
+          <p
+            className={`${
+              !isOpen ? "group-hover:opacity-100" : ""
+            } opacity-0 pb-2`}
+          >
             {result.release_date || result.first_air_date}
           </p>
         </div>

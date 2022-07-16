@@ -115,7 +115,7 @@ function Modal({
       <div
         className={`max-w-[100%] ${
           error ? "" : ""
-        } mx-auto relative bg-slate-600 flex flex-col justify-center`}
+        } mx-auto relative bg-slate-600 flex-col justify-center`}
       >
         <p className="absolute z-10 left-0 bottom-0 p-5 font-bold text-white">
           {title.title || title.original_name}
