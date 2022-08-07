@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import Modal from "./Modal";
+import React from "react";
 import Thumbnail from "./Thumbnail";
 
 function Movies({

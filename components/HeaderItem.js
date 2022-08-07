@@ -1,6 +1,3 @@
-import { useRouter } from "next/router";
-import requests from "../utils/requests";
-
 function HeaderItem({
   isOpen,
   title,
@@ -10,6 +7,7 @@ function HeaderItem({
   content,
   setResult,
   setSearchValue,
+  homeResult,
 }) {
   return (
     <div
@@ -17,7 +15,7 @@ function HeaderItem({
         if (!isOpen) {
           setContent(title);
           if (title === "HOME") {
-            setResult();
+            setResult(homeResult);
             console.log("HOME");
           } else if (title === "WATCHED") {
             setResult([]);

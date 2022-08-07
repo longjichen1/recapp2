@@ -51,7 +51,7 @@ function Thumbnail({
           } flex-col justify-center border-2 rounded-md`}
         >
           <p
-            className={`absolute -mt-8 -transform-x-[50%] -transform-y-[50%] xl:w-[30%] xl:h-[25%] w-[90%] p-7 h-[25%] overflow-y-scroll md:w-[45%] md:h-[27%] scrollbar-hide text-xl scale-0   sm:p-6  md:p-4 md:max-w-xl text-white ${
+            className={`absolute  -transform-x-[50%] -transform-y-[50%] xl:w-[30%] xl:h-[25%] w-[90%] p-7 h-[25%] overflow-y-scroll md:w-[45%] md:h-[27%] scrollbar-hide text-xl scale-0   sm:p-6  md:p-4 md:max-w-xl text-white ${
               !isOpen ? "group-hover:scale-100" : ""
             }`}
           >

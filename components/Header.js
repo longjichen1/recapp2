@@ -1,13 +1,3 @@
-import Image from "next/image";
-import HeaderItem from "./HeaderItem";
-import {
-  BadgeCheckIcon,
-  CollectionIcon,
-  HomeIcon,
-  LightningBoltIcon,
-  SearchIcon,
-  UserIcon,
-} from "@heroicons/react/outline";
 export default function Header() {
   return (
     <header className="flex flex-col sm:flex-row justify-between items-center m-5 mt-0 sticky top-0">

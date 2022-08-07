@@ -4,14 +4,9 @@ import TagBox from "./TagBox";
 import Image from "next/image";
 
 import {
-  ChevronDoubleDownIcon,
   ArrowSmDownIcon,
   ArrowNarrowRightIcon,
-  HomeIcon,
-  UserIcon,
-  SearchIcon,
 } from "@heroicons/react/outline";
-import HeaderItem from "./HeaderItem";
 function HeaderSection({ isOpen, setContent }) {
   return (
     <div

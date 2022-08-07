@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import Thumbnail from "./Thumbnail";
 import { XIcon } from "@heroicons/react/outline";
-import Movies from "./Movies";
 import Recs from "./Recs";
 
 function Modal({
   open,
-  children,
   onClose,
   title,
   emptyTitle,
   setTitle,
-  cont,
   watched,
   addMessage,
   setAddMessage,
@@ -22,7 +17,6 @@ function Modal({
   setRecs,
 }) {
   const [error, setError] = useState(true);
-  const [mounted, setMounted] = useState(false);
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
 
   if (!open) return null;
@@ -33,7 +27,7 @@ function Modal({
       `http://localhost:8080/recommend?watchedMovie=${
         title.original_name || title.title
       }&maxCount=25`,
-      { method: "get" }
+      { method: "post" }
     ).then(function (res) {
       if (!res.ok) {
         setError(true);

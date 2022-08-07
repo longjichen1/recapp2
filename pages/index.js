@@ -1,13 +1,11 @@
 import Head from "next/head";
-import { Result } from "postcss";
 import { useState, useEffect } from "react";
-import Header from "../components/Header";
 import HeaderSection from "../components/HeaderSection";
 import Modal from "../components/Modal";
 import Movies from "../components/Movies";
 import Nav from "../components/Nav";
 import Search from "../components/Search";
-import requests from "../utils/requests";
+import { getMovie } from "../utils/fetchMethods";
 const watched = [];
 const watchedNames = [];
 
@@ -17,12 +15,27 @@ export default function Home({ results }) {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearch, setIsSearch] = useState("");
   const [content, setContent] = useState("HOME");
-  const [result, setResult] = useState(results);
+  const [result, setResult] = useState([]);
+  const [homeResult, setHomeResult] = useState(result);
+
   const [addMessage, setAddMessage] = useState(
     `${watched.indexOf(title) === -1 ? "Add" : "Remove"}`
   );
-  const [searchValue, setSearchValue] = useState("");
 
+  useEffect(() => {
+    handleResults(results);
+  }, []);
+
+  async function handleResults(arr) {
+    const movieArrayd = arr;
+    const movieMetaData = await Promise.all(
+      movieArrayd.map((movie) => getMovie(movie))
+    );
+    setResult(movieMetaData);
+    setHomeResult(movieMetaData);
+  }
+  const [searchValue, setSearchValue] = useState("");
+  console.log(result);
   const [recs, setRecs] = useState([]);
   return (
     <div>
@@ -37,6 +50,7 @@ export default function Home({ results }) {
         content={content}
         setResult={setResult}
         setSearchValue={setSearchValue}
+        homeResult={homeResult}
       />
       <Search
         setSearchResults={setSearchResults}
@@ -72,7 +86,6 @@ export default function Home({ results }) {
         title={title}
         onClose={() => setIsOpen(false)}
         emptyTitle={() => setTitle({})}
-        cont={content}
         watched={watched}
         addMessage={addMessage}
         setAddMessage={setAddMessage}
@@ -87,12 +100,13 @@ export default function Home({ results }) {
 }
 
 export async function getServerSideProps() {
-  let request = await fetch(`${requests.HOME.url}`).then((res) => res.json());
+  let allMovies = await fetch("http://localhost:8080/all-movies").then((res) =>
+    res.json()
+  );
 
-  let result = request.results;
   return {
     props: {
-      results: result,
+      results: allMovies.slice(0, 50),
     },
   };
 }

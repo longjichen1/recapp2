@@ -1,15 +1,5 @@
 import React from "react";
-import requests from "../utils/requests";
-import { useRouter } from "next/router";
-import {
-  ChevronDoubleDownIcon,
-  ArrowSmDownIcon,
-  ArrowNarrowRightIcon,
-  HomeIcon,
-  UserIcon,
-  SearchIcon,
-  ThumbUpIcon,
-} from "@heroicons/react/outline";
+import { HomeIcon, UserIcon, ThumbUpIcon } from "@heroicons/react/outline";
 import HeaderItem from "../components/HeaderItem";
 function Nav({ isOpen, cont, setContent, content, setResult, setSearchValue }) {
   return (
