@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { XIcon } from "@heroicons/react/outline";
 import Recs from "./Recs";
+import { getMovie } from "../utils/fetchMethods";
 
 function Modal({
   open,
@@ -10,10 +11,8 @@ function Modal({
   emptyTitle,
   setTitle,
   watched,
-  addMessage,
   setAddMessage,
   watchedNames,
-  recs,
   setRecs,
 }) {
   const [error, setError] = useState(true);
@@ -27,7 +26,7 @@ function Modal({
       `http://localhost:8080/recommend?watchedMovie=${
         title.original_name || title.title
       }&maxCount=25`,
-      { method: "post" }
+      { method: "get" }
     ).then(function (res) {
       if (!res.ok) {
         setError(true);
@@ -39,14 +38,6 @@ function Modal({
     return data;
   }
 
-  async function getMovie(d) {
-    const a = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=1985ea9f71a9f54b4301260f1e18311a&language=en-US&page=1&include_adult=false&query=${d}`
-    ).then((res) => {
-      return res.json();
-    });
-    return a.results[0];
-  }
   async function recMany() {
     const recManyResult = await fetch(
       `http://localhost:8080/recommend-many?recNumber=50`,
@@ -84,6 +75,7 @@ function Modal({
   };
 
   const recResult = result();
+
   function reset() {
     setTitle({});
     onClose();

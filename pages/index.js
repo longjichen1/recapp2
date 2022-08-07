@@ -4,8 +4,9 @@ import HeaderSection from "../components/HeaderSection";
 import Modal from "../components/Modal";
 import Movies from "../components/Movies";
 import Nav from "../components/Nav";
-import Search from "../components/Search";
-import { getMovie } from "../utils/fetchMethods";
+
+import { handleResults } from "../utils/fetchMethods";
+
 const watched = [];
 const watchedNames = [];
 
@@ -16,27 +17,16 @@ export default function Home({ results }) {
   const [isSearch, setIsSearch] = useState("");
   const [content, setContent] = useState("HOME");
   const [result, setResult] = useState([]);
-  const [homeResult, setHomeResult] = useState(result);
-
   const [addMessage, setAddMessage] = useState(
     `${watched.indexOf(title) === -1 ? "Add" : "Remove"}`
   );
+  const [searchValue, setSearchValue] = useState("");
+  const [recs, setRecs] = useState([]);
 
   useEffect(() => {
-    handleResults(results);
+    handleResults(results, setResult);
   }, []);
 
-  async function handleResults(arr) {
-    const movieArrayd = arr;
-    const movieMetaData = await Promise.all(
-      movieArrayd.map((movie) => getMovie(movie))
-    );
-    setResult(movieMetaData);
-    setHomeResult(movieMetaData);
-  }
-  const [searchValue, setSearchValue] = useState("");
-  console.log(result);
-  const [recs, setRecs] = useState([]);
   return (
     <div>
       <Head>
@@ -45,13 +35,13 @@ export default function Home({ results }) {
       <HeaderSection isOpen={isOpen} setContent={setContent} />
       <Nav
         isOpen={isOpen}
-        cont={content}
+        cont={results}
         setContent={setContent}
         content={content}
         setResult={setResult}
         setSearchValue={setSearchValue}
-        homeResult={homeResult}
       />
+      {/* Deprecated - Search searches through moviedb instead of backend db
       <Search
         setSearchResults={setSearchResults}
         setIsSearch={setIsSearch}
@@ -62,13 +52,13 @@ export default function Home({ results }) {
         watched={watched}
         searchValue={searchValue}
         setSearchValue={setSearchValue}
-      />
+      /> */}
       <Movies
         isOpen={isOpen}
         title={title}
         cont={content}
         searchResults={searchResults}
-        results={results}
+        results={result}
         isSearch={isSearch}
         setOpen={() => {
           setIsOpen(true);
@@ -90,11 +80,8 @@ export default function Home({ results }) {
         addMessage={addMessage}
         setAddMessage={setAddMessage}
         watchedNames={watchedNames}
-        recs={recs}
         setRecs={setRecs}
-      >
-        {" "}
-      </Modal>
+      />
     </div>
   );
 }

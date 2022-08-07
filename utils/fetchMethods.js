@@ -6,3 +6,11 @@ export async function getMovie(movieTitle) {
   });
   return a.results[0];
 }
+
+export async function handleResults(arr, setState) {
+  const movieArrayd = await arr;
+  const movieMetaData = await Promise.all(
+    movieArrayd.map((movie) => getMovie(movie))
+  );
+  setState(movieMetaData);
+}

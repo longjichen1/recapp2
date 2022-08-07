@@ -10,7 +10,6 @@ function Movies({
   searchResults,
   isSearch,
   isOpen,
-  finalResults,
   watched,
   recs,
   searchValue,
@@ -24,7 +23,7 @@ function Movies({
     );
   };
 
-  let displayResults = finalResults || results;
+  let displayResults = results;
 
   if (cont === "WATCHED") {
     displayResults = watched;
@@ -38,10 +37,12 @@ function Movies({
   return (
     <div
       className={`px-5 my-10 grid ${
-        displayResults.length == 0 ? "" : "xl:grid-cols-3 md:grid-cols-2"
+        !displayResults || displayResults.length == 0
+          ? ""
+          : "xl:grid-cols-3 md:grid-cols-2"
       } ${isOpen ? "opacity-50" : ""}`}
     >
-      {displayResults.length > 0 ? (
+      {displayResults && displayResults.length > 0 ? (
         displayResults.map((result) => (
           <Thumbnail
             isOpen={isOpen}

@@ -1,3 +1,4 @@
+import { getMovie } from "../utils/fetchMethods";
 function HeaderItem({
   isOpen,
   title,
@@ -7,16 +8,21 @@ function HeaderItem({
   content,
   setResult,
   setSearchValue,
-  homeResult,
 }) {
+  async function handleResults(arr) {
+    const movieArrayd = arr;
+    const movieMetaData = await Promise.all(
+      movieArrayd.map((movie) => getMovie(movie))
+    );
+    setResult(movieMetaData);
+  }
   return (
     <div
       onClick={() => {
         if (!isOpen) {
           setContent(title);
           if (title === "HOME") {
-            setResult(homeResult);
-            console.log("HOME");
+            handleResults(cont);
           } else if (title === "WATCHED") {
             setResult([]);
           }

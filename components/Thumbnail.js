@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-import Modal from "./Modal";
+import React from "react";
 
 function Thumbnail({
   isOpen,
