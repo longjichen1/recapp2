@@ -74,8 +74,6 @@ function Modal({
     await recMany();
   };
 
-  const recResult = result();
-
   function reset() {
     setTitle({});
     onClose();
@@ -130,7 +128,7 @@ function Modal({
       <div className="flex flex-col justify-center bg-[#ebf0f7]">
         <h1 className="mt-2 text-lg font-bold text-center">Recommendations</h1>
         {/* //button */}
-        <Recs results={recResult} />
+        <Recs results={result} />
       </div>
     </div>
   );

@@ -87,8 +87,11 @@ export default function Home({ results }) {
 }
 
 export async function getServerSideProps() {
-  let allMovies = await fetch("http://localhost:8080/all-movies").then((res) =>
-    res.json()
+  let allMovies = await fetch("http://localhost:8080/all-movies").then(
+    (res) => {
+      if (!res.ok) return [];
+      return res.json();
+    }
   );
 
   return {

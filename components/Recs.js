@@ -6,7 +6,7 @@ function Recs({ results }) {
   const [movieArray, setMovieArray] = useState([]);
 
   useEffect(() => {
-    handleResults(results, setMovieArray);
+    handleResults(results(), setMovieArray);
   }, []);
 
   return (
